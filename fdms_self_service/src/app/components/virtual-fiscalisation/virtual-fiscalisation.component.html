@@ -214,9 +214,13 @@
                 </mat-card-content>
                 <mat-card-header>
                   
-                  <p class="mb-0" *ngIf="errorMessages.length > 1">These are the issues</p>               
+                  <p class="mb-0" *ngIf="errorMessages.length !== 0" style="color:red">Issues:</p>
+                  <ul *ngIf="errorMessages.length !== 0">
+                    <li *ngFor="let error of errorMessages">{{ error }}</li>
+                  </ul>
+                  <p class="mb-0" *ngIf="fileUploaded && errorMessages.length === 0" style="color:green">Details Verified!</p>
 
-              
+                  
 
               </mat-card-header>
             </mat-card>
@@ -227,7 +231,7 @@
       <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
         Back
       </button>
-      <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent" disabled="loading">
+      <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent" [disabled]=!isCompanyValid>
         Next
       </button>
      

@@ -55,6 +55,7 @@ export class VirtualFiscalisationComponent implements OnInit {
   companyName: string; // The company name
   loading = false;
   isCompanyValid:boolean =false;
+  fileUploaded: boolean = false; // Track if the file is uploaded
   errorMessages: string[] = [];
   taxClearanceFiles: any[] = [];
   capturedFields: { invoice: {} | undefined; creditNote: {} | undefined } = {
@@ -113,6 +114,7 @@ export class VirtualFiscalisationComponent implements OnInit {
 
   async onFileSelected(event: any, type: string) {
     this.loading = true;
+    this.errorMessages = []; // Clear error messagesro
     this.onSelect(event, type);
     console.log(event);
     const file: File = event.addedFiles[0];
@@ -131,26 +133,27 @@ export class VirtualFiscalisationComponent implements OnInit {
 
 
       this.loading = false;
+      this.fileUploaded=true;
 
       //end of the conversion
       let mentions = this.mapMentions(data1?.document?.entities);
 
    console.log(mentions)
    if (Number(mentions['tinNumber'])!==this.registerCompanyForm.get('companyTin')?.value){
-    this.errorMessages.push('Enter correct tin number');
+    this.errorMessages.push('Enter correct TIN Number');
    }
    if (Number(mentions['vat'])!==this.registerCompanyForm.get('companyVat')?.value){
-    this.errorMessages.push('Enter correct vat number');
+    this.errorMessages.push('Enter correct VAT Number');
    }
 
-   if (mentions['regTradeName']!==this.registerCompanyForm.get('taxPayerName')?.value){
-    this.errorMessages.push('Enter correct company name');
-   }
+  //  if (mentions['regTradeName']!==this.registerCompanyForm.get('taxPayerName')?.value){
+  //   this.errorMessages.push('Enter correct Taxpayer Name');
+  //  }
 
-   console.log("these are the errors ")
+if(this.errorMessages.length===0){
+  this.isCompanyValid=true;
+}
 console.log(this.errorMessages)
-
-
 
     }
   }
@@ -159,6 +162,9 @@ console.log(this.errorMessages)
   onRemove(event: any, type: string): void {
     //@ts-expect-error
     this[`${type}Files`].splice(this[`${type}Files`].indexOf(event), 1);
+    this.fileUploaded=true;
+    this.isCompanyValid=false;
+
   }
   mapMentions(mentions: Mention[]): { [key: string]: string } {
     const mappedMentions: { [key: string]: string } = {};
