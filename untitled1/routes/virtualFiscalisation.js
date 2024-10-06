@@ -6,7 +6,7 @@ const sendMail = require("../utils/sendMail");
 const { Builder, By, until } = require('selenium-webdriver');
 
 router.post('/register-company', async function(req, res){
-    const {email,companyName, taxPayerName, tradeName, companyTin, companyVat, companyPhoneNumber,companyEmail,houseNo,streetName, city, province, serialNumber,deviceModel}=req.body
+    const {email,companyName, taxPayerName, tradeName, companyTin, companyVat, companyPhoneNumber,companyEmail,houseNo,streetName, city, province, serialNumber,region,station,deviceModel}=req.body
     console.log(req.body)
     try {
 
@@ -45,21 +45,22 @@ router.post('/register-company', async function(req, res){
       await tinField.sendKeys(companyTin);
       await vatField.sendKeys(companyVat);
       await tradeNameField.sendKeys(tradeName);
-      await taxpayerNameField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
-      await companyField.sendKeys(companyName);
+      await taxpayerNameField.sendKeys(taxPayerName);
+      await companyEmailField.sendKeys(companyEmail);
+      await companyPhoneNumberField.sendKeys(companyPhoneNumber);
+      await houseNoField.sendKeys(houseNo);
+      await streetNameField.sendKeys(streetName);
+      await cityField.sendKeys(city);
+      await provinceField.sendKeys(province);
+      await serialNumberField.sendKeys(serialNumber);
+      await regionField.sendKeys(region);
+      await stationField.sendKeys(station);
+      await deviceModelField.sendKeys(deviceModel);
 
-      const closeDayButton = await driver.wait(until.elementLocated(By.css('button.btn.btn-success')), 10000);
+      const registerCompanyButton = await driver.wait(until.elementLocated(By.css('button.btn.btn-success')), 10000);
 
       // Trigger the button click
-      await closeDayButton.click();
+      await registerCompanyButton.click();
         //  await driver.findElement(By.name('otherField2')).sendKeys(submittedValue2);
         //  await driver.findElement(By.name('submit')).click(); // Submit the second form
  

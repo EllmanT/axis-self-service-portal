@@ -18,9 +18,11 @@ import { CloseDayServiceService } from 'src/app/services/close-day-service.servi
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DocumentsAiServiceService } from 'src/app/services/documents-ai-service.service';
 import { VirtualFiscaServiceService } from 'src/app/services/virtual-fisca-service.service';
+import { LocationSelectorComponent } from '../location-selector/location-selector.component';
 @Component({
   selector: 'virtual-fiscalisation',
   standalone: true,
+ 
   imports: [
     MatCardModule,
     MatProgressBarModule,
@@ -37,7 +39,8 @@ import { VirtualFiscaServiceService } from 'src/app/services/virtual-fisca-servi
     NgIf,
     NgForOf,
     NgxDropzoneModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    LocationSelectorComponent
     //FormGroup,
     // MatSnackBar
   
@@ -92,6 +95,16 @@ export class VirtualFiscalisationComponent implements OnInit {
         // Set up value changes for all relevant fields
         this.setupValueChangeListener('companyName');
         this.setupValueChangeListener('taxPayerName');
+  }
+
+  updateSelectedProvince(province: string) {
+    this.registerCompanyForm.patchValue({ province }); // Update province in the form
+
+    console.log(this.registerCompanyForm.get('province')?.value)
+  }
+
+  updateSelectedCity(city: string) {
+    this.registerCompanyForm.patchValue({ city }); // Update city in the form
   }
   onSelect(event: any, type: string): void {
     //@ts-expect-error

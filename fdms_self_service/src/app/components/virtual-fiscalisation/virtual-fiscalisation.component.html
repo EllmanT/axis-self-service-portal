@@ -2,7 +2,7 @@
     <mat-card-header>
       <h4>Register New Company</h4>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content >
       <mat-horizontal-stepper #stepper [linear]="true">
 
   <!-- start of tax payer details section-->
@@ -118,7 +118,7 @@
                     >
                     <mat-form-field appearance="fill">
                       <i class="ri-device-line"></i>
-                      <mat-label>Enter Brach Email</mat-label>
+                      <mat-label>Enter Branch Email</mat-label>
                       <input
                         matInput
                         formControlName="companyEmail"
@@ -127,6 +127,27 @@
                     </mat-form-field>
                   </div>
                 </div>
+                <app-location-selector 
+                (provinceSelected)="updateSelectedProvince($event)" 
+                (citySelected)="updateSelectedCity($event)">
+              </app-location-selector>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                  <label class="d-block mb-12 fw-semibold gray-color"
+                    >Street Name & Suburb</label
+                  >
+                  <mat-form-field appearance="fill">
+                    <i class="ri-mail-line"></i>
+                    <mat-label>Enter Street Name & Suburb</mat-label>
+                    <input
+                      matInput
+                      formControlName="streetName"
+                      type="email"
+                      [disabled]="false" />
+                  </mat-form-field>
+                </div>
+                
+              </div>   
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color"
@@ -144,57 +165,9 @@
                   </div>
                   
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="tagus-form-group">
-                      <label class="d-block mb-12 fw-semibold gray-color"
-                        >Street Name & Suburb</label
-                      >
-                      <mat-form-field appearance="fill">
-                        <i class="ri-mail-line"></i>
-                        <mat-label>Enter Street Name & Suburb</mat-label>
-                        <input
-                          matInput
-                          formControlName="streetName"
-                          type="email"
-                          [disabled]="false" />
-                      </mat-form-field>
-                    </div>
-                    
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="tagus-form-group">
-                      <label class="d-block mb-12 fw-semibold gray-color"
-                        >City/Town</label
-                      >
-                      <mat-form-field appearance="fill">
-                        <i class="ri-mail-line"></i>
-                        <mat-label>Enter City/Town</mat-label>
-                        <input
-                          matInput
-                          formControlName="city"
-                          type="email"
-                          [disabled]="false" />
-                      </mat-form-field>
-                    </div>
-                    
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="tagus-form-group">
-                      <label class="d-block mb-12 fw-semibold gray-color"
-                        >Province</label
-                      >
-                      <mat-form-field appearance="fill">
-                        <i class="ri-mail-line"></i>
-                        <mat-label>Enter Province</mat-label>
-                        <input
-                          matInput
-                          formControlName="province"
-                          type="text"
-                          [disabled]="false" />
-                      </mat-form-field>
-                    </div>
-                    
-                  </div>
+                
+                  
+               
                   
               </div>
               <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
@@ -216,10 +189,11 @@
   <!-- start the DocVerifier section -->
   <mat-step label="Verification ">
     <div class="row">
+      <div class="col-lg-3 col-md-3"></div>
         <div class="col-lg-6 col-md-6">
             <mat-card class="mb-25 tagus-card">
                 <mat-card-header>
-                    <h5 class="mb-0"> Tax Clearance </h5>
+                    <h5 class="mb-0"> VAT Registration Certificate </h5>
                  
 
                 
@@ -238,36 +212,26 @@
                         </ngx-dropzone>
                     <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
                 </mat-card-content>
-            </mat-card>
-        </div>
-        <div class="col-lg-6 col-md-6">
-          <mat-card class="mb-25 tagus-card">
-              <mat-card-header>
-                  <h5 class="mb-0"> VAT Certificate </h5>
-               
+                <mat-card-header>
+                  
+                  <p class="mb-0" *ngIf="errorMessages.length > 1">These are the issues</p>               
 
               
 
               </mat-card-header>
-            
-                                           <mat-card-content>
-                
+            </mat-card>
+        </div>
        
-                      <ngx-dropzone [disabled]="loading">
-                          <ngx-dropzone-label class="fw-semibold">Drop A PDF file here or click to upload.</ngx-dropzone-label>
-                          
-                          <ngx-dropzone-preview  multiple="false" >
-                              <ngx-dropzone-label>preview file</ngx-dropzone-label>
-                          </ngx-dropzone-preview>
-                      </ngx-dropzone>
-                  <!-- <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar> -->
-              </mat-card-content>
-          </mat-card>
-      </div>
     </div>
-    <button  mat-flat-button matStepperPrevious class="tagus ms-5 mt-20" >Back</button>
-
-                                 <button mat-flat-button matStepperNext class="tagus ms-5 mt-20" >Next</button>
+    <div class="text-center">
+      <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
+        Back
+      </button>
+      <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent" disabled="loading">
+        Next
+      </button>
+     
+    </div>
 
 </mat-step>
 <!-- start of trade location /Branch details section -->
