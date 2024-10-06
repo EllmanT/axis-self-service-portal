@@ -1,0 +1,36 @@
+<p>station-selector works!</p>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="tagus-form-group">
+        <label class="d-block mb-12 fw-semibold gray-color"
+        >Region</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Select Region</mat-label>
+          <mat-select (selectionChange)="onRegionChange($event.value)">
+            <mat-option value="">-- Select Region --</mat-option>
+            <mat-option *ngFor="let region of regions" [value]="region.name"
+              >{{ region.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="tagus-form-group">
+        <label class="d-block mb-12 fw-semibold gray-color"
+        >Station</label>
+        <mat-form-field appearance="fill">
+          <mat-label>Select Station</mat-label>
+          <mat-select
+            [disabled]="!filteredCities.length"
+            (selectionChange)="onStationChange($event.value)">
+            <mat-option value="">-- Select Station --</mat-option>
+            <mat-option *ngFor="let city of filteredStations" [value]="station"
+              >{{ station }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  
