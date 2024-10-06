@@ -1,0 +1,366 @@
+<mat-card class="mb-25 tagus-card">
+    <mat-card-header>
+      <h4>Register New Company</h4>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-horizontal-stepper #stepper [linear]="true">
+
+  <!-- start of tax payer details section-->
+        <mat-step label="Tax Payer Details">
+          <form [formGroup]="registerCompanyForm">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="tagus-form-group">
+                  <label class="d-block mb-12 fw-semibold gray-color"
+                    >Taxpayer Name</label
+                  >
+                  <mat-form-field appearance="fill">
+                    <i class="ri-user-3-line"></i>
+                    <mat-label>Enter Taxpayer Name</mat-label>
+                    <input
+                      matInput
+                      formControlName="taxPayerName"
+                      type="text"
+                      [disabled]="false" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Trade Name/ Branch Name</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-user-3-line"></i>
+                <mat-label>Enter Trade Name</mat-label>
+                <input
+                  matInput
+                  formControlName="tradeName"
+                  type="text"
+                  [disabled]="false" />
+              </mat-form-field>
+            </div>
+          </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                  <label class="d-block mb-12 fw-semibold gray-color"
+                    >Taxpayer TIN</label
+                  >
+                  <mat-form-field appearance="fill">
+                    <i class="ri-device-line"></i>
+                    <mat-label>Enter Taxpayer TIN</mat-label>
+                    <input
+                      matInput
+                      formControlName="companyTin"
+                      type="number"
+                      [disabled]="false" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                  <label class="d-block mb-12 fw-semibold gray-color"
+                    >TaxPayer VAT</label
+                  >
+                  <mat-form-field appearance="fill">
+                    <i class="ri-mail-line"></i>
+                    <mat-label>Enter Taxpayer VAT</mat-label>
+                    <input
+                      matInput
+                      formControlName="companyVat"
+                      type="number"
+                      [disabled]="false" />
+                  </mat-form-field>
+                </div>
+                
+              </div>
+            </div>
+            <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  
+          </form>
+  
+          <div class="text-center">
+            <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
+              Back
+            </button>
+            <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent">
+                Next
+              </button>
+           
+          </div>
+        </mat-step>
+        <!-- end of tax payer details section -->
+         
+<!-- start of trade location /Branch details section -->
+        <mat-step label="Branch Details">
+            <form [formGroup]="registerCompanyForm">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >Company Phone Number</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-user-3-line"></i>
+                      <mat-label>Enter Company Phone Number</mat-label>
+                      <input
+                        matInput
+                        formControlName="companyPhoneNumber"
+                        type="text"
+                        [disabled]="false" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >Branch Email</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-device-line"></i>
+                      <mat-label>Enter Brach Email</mat-label>
+                      <input
+                        matInput
+                        formControlName="companyEmail"
+                        type="email"
+                        [disabled]="false" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >House No</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-mail-line"></i>
+                      <mat-label>Enter House No</mat-label>
+                      <input
+                        matInput
+                        formControlName="houseNo"
+                        type="email"
+                        [disabled]="false" />
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="tagus-form-group">
+                      <label class="d-block mb-12 fw-semibold gray-color"
+                        >Street Name & Suburb</label
+                      >
+                      <mat-form-field appearance="fill">
+                        <i class="ri-mail-line"></i>
+                        <mat-label>Enter Street Name & Suburb</mat-label>
+                        <input
+                          matInput
+                          formControlName="streetName"
+                          type="email"
+                          [disabled]="false" />
+                      </mat-form-field>
+                    </div>
+                    
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="tagus-form-group">
+                      <label class="d-block mb-12 fw-semibold gray-color"
+                        >City/Town</label
+                      >
+                      <mat-form-field appearance="fill">
+                        <i class="ri-mail-line"></i>
+                        <mat-label>Enter City/Town</mat-label>
+                        <input
+                          matInput
+                          formControlName="city"
+                          type="email"
+                          [disabled]="false" />
+                      </mat-form-field>
+                    </div>
+                    
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="tagus-form-group">
+                      <label class="d-block mb-12 fw-semibold gray-color"
+                        >Province</label
+                      >
+                      <mat-form-field appearance="fill">
+                        <i class="ri-mail-line"></i>
+                        <mat-label>Enter Province</mat-label>
+                        <input
+                          matInput
+                          formControlName="province"
+                          type="text"
+                          [disabled]="false" />
+                      </mat-form-field>
+                    </div>
+                    
+                  </div>
+                  
+              </div>
+              <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    
+            </form>
+    
+            <div class="text-center">
+              <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
+                Back
+              </button>
+              <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent">
+                Next
+              </button>
+             
+            </div>
+          </mat-step>
+
+<!-- start of trade location /Branch details section -->
+  <!-- start the DocVerifier section -->
+  <mat-step label="Verification ">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <mat-card class="mb-25 tagus-card">
+                <mat-card-header>
+                    <h5 class="mb-0"> Tax Clearance </h5>
+                 
+
+                
+
+                </mat-card-header>
+              
+                                             <mat-card-content>
+                  
+         
+                                              <ngx-dropzone (change)="onFileSelected($event, 'taxClearance')" [disabled]="loading">
+                                                <ngx-dropzone-label class="fw-semibold">Drop PDF files here or click to upload.</ngx-dropzone-label>
+                            
+                            <ngx-dropzone-preview *ngFor="let f of taxClearanceFiles" multiple="false" [removable]="true" (removed)="onRemove(f, 'taxClearance')">
+                              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                          </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <mat-card class="mb-25 tagus-card">
+              <mat-card-header>
+                  <h5 class="mb-0"> VAT Certificate </h5>
+               
+
+              
+
+              </mat-card-header>
+            
+                                           <mat-card-content>
+                
+       
+                      <ngx-dropzone [disabled]="loading">
+                          <ngx-dropzone-label class="fw-semibold">Drop A PDF file here or click to upload.</ngx-dropzone-label>
+                          
+                          <ngx-dropzone-preview  multiple="false" >
+                              <ngx-dropzone-label>preview file</ngx-dropzone-label>
+                          </ngx-dropzone-preview>
+                      </ngx-dropzone>
+                  <!-- <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar> -->
+              </mat-card-content>
+          </mat-card>
+      </div>
+    </div>
+    <button  mat-flat-button matStepperPrevious class="tagus ms-5 mt-20" >Back</button>
+
+                                 <button mat-flat-button matStepperNext class="tagus ms-5 mt-20" >Next</button>
+
+</mat-step>
+<!-- start of trade location /Branch details section -->
+ <!-- start device details section -->
+ <mat-step label="Device Details">
+    <form [formGroup]="registerCompanyForm">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="tagus-form-group">
+            <label class="d-block mb-12 fw-semibold gray-color"
+              >Serial Number</label
+            >
+            <mat-form-field appearance="fill">
+              <i class="ri-user-3-line"></i>
+              <mat-label>35435sd43534dfv</mat-label>
+              <input
+                matInput
+                formControlName="serialNumber"
+                type="text"
+                [disabled]="false" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="tagus-form-group">
+            <label class="d-block mb-12 fw-semibold gray-color"
+              >Device ID</label
+            >
+            <mat-form-field appearance="fill">
+              <i class="ri-device-line"></i>
+              <mat-label>Enter Device Id</mat-label>
+              <input
+                matInput
+                formControlName="deviceId"
+                type="number"
+                [disabled]="false" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="tagus-form-group">
+            <label class="d-block mb-12 fw-semibold gray-color"
+              >Device Model</label
+            >
+            <mat-form-field appearance="fill">
+              <i class="ri-mail-line"></i>
+              <mat-label>Enter Device Model Name</mat-label>
+              <input
+                matInput
+                formControlName="deviceModel"
+                type="text"
+                [disabled]="false" />
+            </mat-form-field>
+          </div>
+          
+        </div>
+      </div>
+      <mat-progress-bar class="mt-10" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+    </form>
+
+    <div class="text-center">
+      <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
+        Back
+      </button>
+      <button mat-flat-button class="tagus ms-5 mt-20" color="accent" [disabled]="loading" [class.loading]="loading"  (click)="onSubmit()">
+        <span *ngIf="loading">Submitting Request...</span>
+        <span *ngIf="!loading">Submit</span>
+      </button>
+    </div>
+    <!--                <button [disabled]="!capturedFields.creditNote" mat-flat-button matStepperNext class="tagus ms-5 mt-20">Next</button>-->
+  </mat-step>
+
+<!-- start of trade location /Branch details section -->
+  
+        <mat-step label=" ">
+            <div class="row">
+              <div class="text-center color-success">
+                <h2>Your request has been sent to ZIMRA successfully!</h2>
+                  <p>Your day will be closed in the next 10 mins to 1 hour.</p>
+              </div>
+              
+            </div>
+  
+          <div class="text-center">
+            <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
+              Back
+            </button>
+           
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+      
+    </mat-card-content>
+  </mat-card>
+  
