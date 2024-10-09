@@ -1,4 +1,3 @@
-<p>station-selector works!</p>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6">
       <div class="tagus-form-group">
@@ -22,10 +21,10 @@
         <mat-form-field appearance="fill">
           <mat-label>Select Station</mat-label>
           <mat-select
-            [disabled]="!filteredCities.length"
+            [disabled]="!filteredStations.length"
             (selectionChange)="onStationChange($event.value)">
             <mat-option value="">-- Select Station --</mat-option>
-            <mat-option *ngFor="let city of filteredStations" [value]="station"
+            <mat-option *ngFor="let station of filteredStations" [value]="station"
               >{{ station }}</mat-option
             >
           </mat-select>

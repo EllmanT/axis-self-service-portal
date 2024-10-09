@@ -193,21 +193,14 @@ router.post("/companyVerifier", async function (req, res) {
     const { DocumentProcessorServiceClient } =
         require("@google-cloud/documentai").v1;
 
-    // Instantiates a client
-    // apiEndpoint regions available: eu-documentai.googleapis.com, us-documentai.googleapis.com (Required if using eu based processor)
     const client = new DocumentProcessorServiceClient({
         apiEndpoint: "us-documentai.googleapis.com",
     });
-    //     const client = new DocumentProcessorServiceClient();
-
-    // The full resource name of the processor, e.g.:
-    // projects/project-id/locations/location/processor/processor-id
-    // You must create new processors in the Cloud Console first
+   
     const name = `projects/${projectId}/locations/${location}/processors/${processorId}`;
 
     // Convert the image data to a Buffer and base64 encode it.
     const encodedImage = data.doc;
-//console.log(encodedImage)
     const request = {
         name,
         rawDocument: {
@@ -218,131 +211,10 @@ router.post("/companyVerifier", async function (req, res) {
 
     // Recognizes text entities in the PDF document
     const [result] = await client.processDocument(request);
-    const { document } = result;
-
-    // Get all of the document text as one big string
-    const { text } = document;
-
-    console.log("start of the text")
-    console.log(text)
-    console.log("end of the text")
-
-    // Extract shards from the text field
-    const getText = (textAnchor) => {
-        if (!textAnchor.textSegments || textAnchor.textSegments.length === 0) {
-            return "";
-        }
-
-        // First shard in document doesn't have startIndex property
-        const startIndex = textAnchor.textSegments[0].startIndex || 0;
-        const endIndex = textAnchor.textSegments[0].endIndex;
-        //console.log(textAnchor.textSegments)
-
-        return text.substring(startIndex, endIndex);
-    };
-
-    // Read the text recognition output from the processor
-    console.log("The document contains the following paragraphs:");
-    const [page1] = document.pages;
-    const { lines } = page1;
-
-    console.log("lines start here")
-    console.log(lines)
-    console.log("end of the lines")
-    for (const paragraph of lines) {
-        const paragraphText = getText(paragraph.layout.textAnchor);
-        // const paragraphlines = getText(paragraph)
-
-
-        console.log(`line text:\n${paragraphText}`);
-    }
-
-    //grouping the info base on the number of the textanchor
-    for (const newlines of lines) {
-        const newParagraphText = getText(newlines.layout.textAnchor);
-        const paragraphlines = getText(newParagraphText)
-        console.log(paragraphlines)
-        console.log("start of the line text")
-        console.log(`line text:\n${newParagraphText}`);
-        console.log("end of the line text")
-    }
-
-    //end of grouping the line items that have the same text anchor
-
-    let entities = result.document.entities[0].properties;
-
-        console.log(entities)
-    let filteredEntity = {};
-
-    for (const entity of entities) {
-        // let obj = {[entity.type] : entity.mentionText}
-        // filteredEntity.push(obj)
-        filteredEntity[entity.type] = entity.mentionText;
-    }
 
 
 
-    // Accessing the structured text from the document
-    const tableData = result.document.pages[0].tables;
-    let tables = [];
 
-
-//extracting the data from the table
-
-    for (let i = 0; i < tableData.length; i++) {
-        // Extracting data from the table
-        const extractedData = [];
-
-        const headers = [];
-
-        for (const header of tableData[i].headerRows) {
-            for (const cell of header.cells) {
-                // Assuming each cell has a text field, adapt based on your document structure
-                const cellText = getText(cell.layout.textAnchor).replace("\n", ""); //cell.layout.textAnchor.textSegments[0].content;
-                headers.push(cellText);
-            }
-        }
-
-        for (const row of tableData[i].bodyRows) {
-            const rowData = {};
-
-            let num = 0;
-            for (const cell of row.cells) {
-                // Assuming each cell has a text field, adapt based on your document structure
-                const cellText = getText(cell.layout.textAnchor).replace("\n", ""); //cell.layout.textAnchor.textSegments[0].content;
-                let obj = { [headers[num]]: cellText };
-
-                rowData[headers[num]] = cellText;
-                num++;
-            }
-
-            extractedData.push(rowData);
-        }
-        tables.push(extractedData);
-    }
-
-    let formFields = {};
-
-    for (const field of result.document.pages[0].formFields) {
-        formFields[getText(field.fieldName.textAnchor).replace("\n", "")] = getText(
-            field.fieldValue.textAnchor
-        ).replace("\n", "");
-    }
-
-    // entities = {};
-    // for (const entity of result.document.entities[0].properties){
-    //     entities[getText(entity.type).replace('\n', '')] = getText(entity.mentionText).replace('\n', '');
-    // }
-
-    invoiceStructuredData.tables = tables;
-    invoiceStructuredData.formFields = formFields;
-    invoiceStructuredData.ocr = result.document.text;
-    invoiceStructuredData.entities = filteredEntity;
-
-    console.log("start of entities")
-    console.log(result.document.entities);
-    console.log("end of the entities")
-    const invoiceText = result.document.text;
     res.send(result);
 
 });

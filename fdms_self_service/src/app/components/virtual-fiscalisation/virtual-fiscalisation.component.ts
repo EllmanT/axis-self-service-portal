@@ -19,6 +19,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DocumentsAiServiceService } from 'src/app/services/documents-ai-service.service';
 import { VirtualFiscaServiceService } from 'src/app/services/virtual-fisca-service.service';
 import { LocationSelectorComponent } from '../location-selector/location-selector.component';
+import { StationSelectorComponent } from '../station-selector/station-selector.component';
+import { DeviceModelSelectorComponent } from '../device-model-selector/device-model-selector.component';
 @Component({
   selector: 'virtual-fiscalisation',
   standalone: true,
@@ -40,7 +42,10 @@ import { LocationSelectorComponent } from '../location-selector/location-selecto
     NgForOf,
     NgxDropzoneModule,
     MatCheckboxModule,
-    LocationSelectorComponent
+    LocationSelectorComponent,
+    StationSelectorComponent,
+    DeviceModelSelectorComponent
+    
     //FormGroup,
     // MatSnackBar
   
@@ -86,6 +91,8 @@ export class VirtualFiscalisationComponent implements OnInit {
       streetName: ['', Validators.required],//define the form control 'street',
       city: ['', Validators.required],//define the form control 'city',
       province:['', Validators.required],//define the form control 'province,
+      region:['', Validators.required],
+      station:['', Validators.required],//define the form control 'station
 
       serialNumber: [''],//define the form control 'serialNumber,
       deviceId: [''],//define the form control 'deviceId,
@@ -106,6 +113,18 @@ export class VirtualFiscalisationComponent implements OnInit {
 
   updateSelectedCity(city: string) {
     this.registerCompanyForm.patchValue({ city }); // Update city in the form
+  }
+
+  updateSelectedRegion(region: string) {
+    this.registerCompanyForm.patchValue({ region }); // Update province in the form
+
+  }
+
+  updateSelectedStation(station: string) {
+    this.registerCompanyForm.patchValue({ station }); // Update city in the form
+  }
+  updateSelectedDeviceModel(deviceModel: string) {
+    this.registerCompanyForm.patchValue({ deviceModel }); // Update city 
   }
   onSelect(event: any, type: string): void {
     //@ts-expect-error
@@ -224,9 +243,9 @@ console.log(this.errorMessages)
 
   onSubmit(){
     this.loading = true;
-    if(this.registerCompanyForm.invalid){
-      return;
-    }
+    // if(this.registerCompanyForm.invalid){
+    //   return;
+    // }
 
     const formData = this.registerCompanyForm.value;
 

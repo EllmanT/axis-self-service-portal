@@ -1,0 +1,15 @@
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="tagus-form-group">
+        <label class="d-block mb-12 fw-semibold gray-color"
+        >Device Model</label>
+        <mat-form-field appearance="fill">
+            <mat-label>Select DeviceModel</mat-label>
+            <mat-select (selectionChange)="onDeviceModelChange($event.value)">
+              <mat-option value="">-- Select Device Model --</mat-option>
+              <mat-option *ngFor="let deviceModel of deviceModels" [value]="deviceModel.name"
+                >{{ deviceModel.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </div>

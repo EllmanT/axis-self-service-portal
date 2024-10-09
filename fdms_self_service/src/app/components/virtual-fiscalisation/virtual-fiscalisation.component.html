@@ -142,7 +142,7 @@
                     <input
                       matInput
                       formControlName="streetName"
-                      type="email"
+                      type="text"
                       [disabled]="false" />
                   </mat-form-field>
                 </div>
@@ -159,7 +159,7 @@
                       <input
                         matInput
                         formControlName="houseNo"
-                        type="email"
+                        type="text"
                         [disabled]="false" />
                     </mat-form-field>
                   </div>
@@ -231,7 +231,8 @@
       <button mat-flat-button class="tagus ms-5 mt-20" matStepperPrevious color="primary">
         Back
       </button>
-      <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent" [disabled]=!isCompanyValid>
+      <!-- <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent" [disabled]=!isCompanyValid> -->
+      <button mat-flat-button class="tagus ms-5 mt-20" matStepperNext color="accent" >
         Next
       </button>
      
@@ -243,7 +244,17 @@
  <mat-step label="Device Details">
     <form [formGroup]="registerCompanyForm">
       <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
+        <app-station-selector 
+        (regionSelected)="updateSelectedRegion($event)" 
+        (stationSelected)="updateSelectedStation($event)">
+      </app-station-selector>
+
+      <app-device-model-selector 
+      (deviceModelSelected)="updateSelectedDeviceModel($event)" 
+      >
+    </app-device-model-selector>
+   
+        <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="tagus-form-group">
             <label class="d-block mb-12 fw-semibold gray-color"
               >Serial Number</label
@@ -259,22 +270,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="tagus-form-group">
-            <label class="d-block mb-12 fw-semibold gray-color"
-              >Device ID</label
-            >
-            <mat-form-field appearance="fill">
-              <i class="ri-device-line"></i>
-              <mat-label>Enter Device Id</mat-label>
-              <input
-                matInput
-                formControlName="deviceId"
-                type="number"
-                [disabled]="false" />
-            </mat-form-field>
-          </div>
-        </div>
+       
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="tagus-form-group">
             <label class="d-block mb-12 fw-semibold gray-color"

@@ -22,7 +22,7 @@ private baseUrl = environment.apiBaseUrl;
 
 
 registerCompany(data:any):Observable<any> {
-  const url=  `${this.baseUrl}/virtual-fiscalisation/register-company`
+  const url=  `${this.baseUrl}/virtualFiscalisation/register-company`
   console.log("sent the requesst");
   console.log("this is the data",data)
   return this.http.post(url, data,);

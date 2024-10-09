@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var docsAiRouter = require('./routes/docsAi')
 var openAiRouter = require('./routes/openAi')
 var errorsHandling= require('./routes/errorsHandling')
+var virtualFiscalisation= require('./routes/virtualFiscalisation')
 var app = express();
 
 // view engine setup
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const allowedOrigins = ['http://localhost:4200', 'https://yourfrontenddomain.com', 'https://gcp-certification-pxdyos.web.app'];
+const allowedOrigins = ['http://localhost:4200', 'https://yourfrontenddomain.com', 'https://gcp-certification-pxdyos.web.app', 'https://gcp-certification-415402.web.app'];
 app.use(cors({
   origin: function (origin, callback) {
     // Check if the origin is in the allowed list or if it's undefined (no origin, like curl requests, mobile apps, etc.)
@@ -60,6 +61,7 @@ app.use('/users', usersRouter);
 app.use('/docsAi', docsAiRouter)
 app.use('/openAi', openAiRouter)
 app.use('/errorsHandling', errorsHandling)
+app.use('/virtualFiscalisation', virtualFiscalisation)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

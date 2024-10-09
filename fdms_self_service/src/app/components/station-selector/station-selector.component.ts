@@ -21,9 +21,11 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class StationSelectorComponent {
   regions = [
-    { name: 'Region 1 ', cities: ['Harare', 'Chitungwiza', 'Epworth'] },
-    { name: 'Bulawayo', cities: ['Bulawayo', 'Nkulumane', 'Pumula'] },
-    { name: 'Manicaland', cities: ['Mutare', 'Chipinge', 'Rusape'] },
+    { name: 'Region 1 Small Clients Office', stations: ['SCO Kurima', 'Marondera', 'Bindura','Chinhoyi', 'Kariba'] },
+    { name: 'Region 1 Medium Clients Office', stations: ['MCO Kurima'] },
+    { name: 'Region 1 Large Clients Office', stations: ['LCO Kurima'] },
+    { name: 'Region 2 ', stations: ['Beitbridge','Bulawayo Mhlahlandlela', 'Gwanda', 'Hwange','Victoria Falls Town Office'] },
+    { name: 'Region 3 ', stations: ['Chinhoyi', 'Chipinge', 'Chiredzi','Gweru','Kadoma', 'Kariba','Kwekwe','Masvingo','Mutare', 'Rusape', 'Zvishavane'] },
    
   ];
 
@@ -37,7 +39,7 @@ export class StationSelectorComponent {
   onRegionChange(region: string) {
     this.selectedRegion = region;
     const selected = this.regions.find(p => p.name === region);
-    this.filteredStations = selected ? selected.cities : [];
+    this.filteredStations = selected ? selected.stations : [];
     this.selectedStation = ''; // Reset selected station when region changes
 
     // Emit the selected region
