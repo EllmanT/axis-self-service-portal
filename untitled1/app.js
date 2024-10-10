@@ -24,7 +24,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const allowedOrigins = ['http://localhost:4200', 'https://yourfrontenddomain.com', 'https://gcp-certification-pxdyos.web.app', 'https://gcp-certification-415402.web.app'];
+const allowedOrigins = ['http://localhost:4200', 'https://yourfrontenddomain.com','https://fiscalcloud.co.zw', 'https://gcp-certification-pxdyos.web.app', 'https://gcp-certification-415402.web.app'];
 app.use(cors({
   origin: function (origin, callback) {
     // Check if the origin is in the allowed list or if it's undefined (no origin, like curl requests, mobile apps, etc.)
