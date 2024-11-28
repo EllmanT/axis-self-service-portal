@@ -23,6 +23,7 @@ private baseUrl = environment.apiBaseUrl;
 
 registerCompany(data:any):Observable<any> {
   const url=  `${this.baseUrl}/virtualFiscalisation/register-company`
+  // const url = `https://docs-ai-dcjdb5ctiq-uc.a.run.app/virtualFiscalisation/register-company`;
   console.log("sent the requesst");
   console.log("this is the data",data)
   return this.http.post(url, data,);

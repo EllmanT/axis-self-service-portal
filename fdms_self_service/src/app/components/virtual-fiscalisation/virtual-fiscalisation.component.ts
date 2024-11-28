@@ -107,8 +107,6 @@ export class VirtualFiscalisationComponent implements OnInit {
 
   updateSelectedProvince(province: string) {
     this.registerCompanyForm.patchValue({ province }); // Update province in the form
-
-    console.log(this.registerCompanyForm.get('province')?.value)
   }
 
   updateSelectedCity(city: string) {
