@@ -24,8 +24,24 @@ router.post("/register-company", async function (req, res) {
     serialNumber,
   } = req.body;
 
-  console.log(req.body);
-  console.log("we are in part 1");
+  
+// const  taxPayerName= 'Test'
+//   const tradeName= 'test'
+//  const companyTin= 2000111222
+//   const companyVat= 220111222
+//   const companyPhoneNumber= '0771234567'
+//   const companyEmail= 'tmhere@gmail.com'
+//   const houseNo= '2'
+//   const streetName= 'test'
+//   const city='Harare'
+//   const province='Harare'
+//   const region= 'Region 1 Small Clients Office'
+//   const station= 'SCO Kurima'
+//   const serialNumber= 'test3243232441'
+//  const deviceModel= 'Self'
+//   const supplierId= '2000093077';
+
+console.log("in part one ")
   try {
     let options = new chrome.Options();
     options.addArguments("--headless");
@@ -77,7 +93,9 @@ router.post("/register-company", async function (req, res) {
       );
 
       await tinField.sendKeys(companyTin);
+      if(companyVat !=="" && companyVat !== null && companyVat !== undefined){ 
       await vatField.sendKeys(companyVat);
+      }
       await tradeNameField.sendKeys(tradeName);
       await taxpayerNameField.sendKeys(taxPayerName);
       await companyEmailField.sendKeys(companyEmail);
@@ -110,20 +128,26 @@ router.post("/register-company", async function (req, res) {
       );
 
       await registerCompanyButton.click();
-      // Wait for the page to reload after form submission
-      await driver.wait(
-        until.urlIs("http://fdmsops.zimra.co.zw/fdms-public/add-device"),
-        20000
-      ); // Adjust the URL as necessary
+            console.log("device has been regfistered ")
 
+      // Wait for the page to reload after form submission
+      // await driver.wait(
+      //   until.urlIs("http://fdmsops.zimra.co.zw/fdms-public/add-device"),
+      //   20000
+      // ); // Adjust the URL as necessary
+      console.log("hform reload done and found ")
       // Wait for the table to appear and be visible
       const tableSelector =
         "table.table.table-bordered.table-sm.table-responsive"; // Make sure this selector is correct
       await driver.wait(until.elementLocated(By.css(tableSelector)), 20000); // Wait for the table to be located
+            console.log("hform reload done and found ")
+
       const tableElement = await driver.wait(
         until.elementIsVisible(await driver.findElement(By.css(tableSelector))),
         20000
       ); // Wait until table is visible
+            console.log("table element has been located ")
+
 
       // Retrieve the last two columns from the table
       const rows = await tableElement.findElements(By.css("tbody tr"));
